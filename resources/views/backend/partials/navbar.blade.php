@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="header-control-item d-none d-lg-block">
+        <div class="header-control-item d-lg-block">
 
             <div class="item-content d-flex align-items-center">
                 <div class="mt-0 d-flex  align-items-between pe-auto cursor-pointer pointer " role="navigation" id="topbar_messages"
