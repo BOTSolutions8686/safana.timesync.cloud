@@ -1,0 +1,13 @@
+{
+    "name": "MultiBanch",
+    "alias": "multibanch",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\MultiBanch\\Providers\\MultiBanchServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,0 +1,5 @@
+{
+    "Name is required": "Name is required",
+    "Name is not more than 255 characters": "Name is not more than 255 characters",
+    "Status is required": "Status is required"
+}
