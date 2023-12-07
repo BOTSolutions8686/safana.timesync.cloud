@@ -660,6 +660,7 @@ class AttendanceRepository
     }
     public function webCheckOut($request, $id)
     {
+       
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
             'check_out' => 'required',
@@ -671,15 +672,17 @@ class AttendanceRepository
 
 
         try {
-
-            if (settings('location_check') && !$this->locationCheck($request)) {
+             $user = $this->user->query()->find($request->user_id);
+           
+            if (settings('location_check') && !$this->locationCheck($request, $user->branch_id)) {
                 return $this->responseWithError('Your location is not valid', [], 400);
             }
             if (settings('ip_check') && !$this->isIpRestricted()) {
                 return $this->responseWithError('You your ip address is not valid', [], 400);
             }
-            $user = $this->user->query()->find($request->user_id);
+           
             if ($user) {
+                
                 $isIpRestricted = $this->isIpRestricted();
                 if ($isIpRestricted) {
                     $request['checkin_ip'] = getUserIpAddr();
@@ -738,6 +741,7 @@ class AttendanceRepository
                 return $this->responseWithError('No user found', [], 400);
             }
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return $this->responseWithError(_trans('response.Something went wrong.'), [], 400);
         }
     }

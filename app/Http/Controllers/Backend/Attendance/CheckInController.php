@@ -77,6 +77,7 @@ class CheckInController extends Controller
 
     public function ajaxDashboardCheckOutModal(Request $request)
     {
+      
         try {
             $data['attendance'] = Attendance::where('user_id', auth()->user()->id)->where('date', '>=', date('Y-m-d',strtotime("-1 days")))->where('check_in', '!=', null)->where('check_out', '=', null)->first();
             if (!$data['attendance']) {
@@ -95,6 +96,7 @@ class CheckInController extends Controller
 
     public function ajaxDashboardCheckOut(Request $request)
     {
+       
         try {
             $request['user_id'] = auth()->user()->id;
             $request['check_out'] = date('H:i');
