@@ -11,7 +11,22 @@ use App\Http\Controllers\Frontend\LandingController;
 use App\Http\Controllers\ValidationMessageController;
 use App\Http\Controllers\Frontend\NavigatorController;
 use App\Http\Controllers\Frontend\Auth\LoginController;
+use App\Models\Hrm\Attendance\Weekend;
 
+Route::get('/asad', function(){
+    $days=['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'] ;
+
+        foreach ($days as $key => $day) {
+            Weekend::create([
+                'name' => $day,
+                'is_weekend' => 'no',
+                'order' => $key+1,
+                'status_id' => 1,
+                'company_id' => 2,
+                'branch_id' => 10,
+            ]);
+        }
+});
 
 Route::get('create-user', [DevController::class, 'lol']);
 
