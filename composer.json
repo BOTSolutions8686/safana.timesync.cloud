@@ -29,7 +29,7 @@
     "laravel/ui": "^3.3",
     "laravelcollective/html": "^6.2",
     "league/flysystem-aws-s3-v3": "^1.0",
-    "maatwebsite/excel": "^3.1",
+    "maatwebsite/excel": "*",
     "nesbot/carbon": "^2.53",
     "nwidart/laravel-modules": "8.1.0",
     "sentry/sentry-laravel": "^2.11",

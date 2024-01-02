@@ -187,6 +187,27 @@ class AttendanceReportController extends Controller
             return redirect()->back();
         }
     }
+
+    // Monthly Attendance Report
+    public function monthlyreport(Request $request){
+        try {
+            if ($request->ajax()) {
+                return $this->attendanceReport->AbsentAttentanceTable($request);
+            }
+            $data['class']  = 'report_attendance_table';
+            $data['fields'] = $this->attendance_repo->absent_report_fields();
+            $data['checkbox'] = true;
+            $data['table']     = route('MonthlyAttendanceReport.MonthlyAttendance');
+            $data['url_id']    = 'report_absent_attendance_table_url';
+            $data['title'] = _trans('attendance.Absent Attendance Report');
+            $data['departments'] = $this->department->getAll();
+            $data['users'] = $this->users->getAll();
+            return view('backend.report.attendance.monthlyreport', compact('data'));
+        } catch (\Throwable $th) {
+            Toastr::error(_trans('response.Something went wrong.'), 'Error');
+            return redirect()->back();
+        }
+    }
 	
 	// No Checkout Attendance Report
     public function NoCheckout(Request $request){

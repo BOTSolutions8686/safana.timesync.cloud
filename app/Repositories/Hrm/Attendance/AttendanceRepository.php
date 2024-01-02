@@ -332,7 +332,9 @@ class AttendanceRepository
 
     public function locationCheck($request,$branch_id)
     {
+        dd($request->all());
         $locationInfo = false;
+       
         foreach (DB::table('location_binds')->where('company_id', $this->companyInformation()->id)->where('branch_id', $branch_id)->where('status_id', 1)->get() as $location) {
             $distance = distanceCalculate($request->latitude, $request->longitude, $location->latitude, $location->longitude);
             if ($distance <= $location->distance) {
@@ -379,7 +381,7 @@ class AttendanceRepository
 
 
             $user = $this->user->query()->find(Auth::id());
-
+           
             return $this->userAttendance($user, $request);
         } catch (\Throwable $th) {
             // Log::error($th);

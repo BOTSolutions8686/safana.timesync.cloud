@@ -4,14 +4,15 @@ use Carbon\Carbon;
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\Hrm\Attendance\Weekend;
 use App\Http\Controllers\DevController;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\AttendenceExportCont;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Frontend\LandingController;
 use App\Http\Controllers\ValidationMessageController;
 use App\Http\Controllers\Frontend\NavigatorController;
 use App\Http\Controllers\Frontend\Auth\LoginController;
-use App\Models\Hrm\Attendance\Weekend;
 
 Route::get('/asad', function(){
     $days=['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'] ;
@@ -71,3 +72,8 @@ Route::get('validation-message-generate', function () {
 Route::POST('validation-message-generate', [ValidationMessageController::class, 'messageGenerate'])->name('message_generate')->middleware('xss');
 
 Route::get('sync-flugs/{language_name}',[DevController::class, 'syncFlug']);
+
+
+
+// Route::get('/hrm/attendance/exportcs', [AttendenceExportCont::class,'export']);
+Route::get('/hrm/report/monthlyreport', [App\Http\Controllers\AttendenceExportCont::class, 'export'])->name('monthlyreport');

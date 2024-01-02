@@ -327,5 +327,6 @@
     "Manager": "Manager",
     "Update Weekend": "Update Weekend",
     "Is Weekend": "Is Weekend",
-    "Import": "Import"
+    "Import": "Import",
+    "Created_at": "Created_at"
 }

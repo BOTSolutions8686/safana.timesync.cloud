@@ -30,7 +30,7 @@ Route::group(['prefix' => 'hrm', 'middleware' => ['xss','admin', 'MaintenanceMod
         Route::get('present-attendance',                      [AttendanceReportController::class, 'PresentAttendance'])->name('PresentAttendanceReport.PresentAttendance')->middleware('PermissionCheck:attendance_report_read');
         // Late Report
         Route::get('late-attendance',                      [AttendanceReportController::class, 'LateAttendance'])->name('LateAttendanceReport.LateAttendance')->middleware('PermissionCheck:attendance_report_read');
-        // Absent Report
+     // Absent Report
         Route::get('absent-attendance',                      [AttendanceReportController::class, 'AbsentAttendance'])->name('AbsentAttendanceReport.AbsentAttendance')->middleware('PermissionCheck:attendance_report_read');
 		        // No Checkout Report
         Route::get('no-checkout',                      [AttendanceReportController::class, 'NoCheckout'])->name('NoCheckoutReport.NoCheckout')->middleware('PermissionCheck:attendance_report_read');

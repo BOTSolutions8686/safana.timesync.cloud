@@ -566,6 +566,7 @@
                                 </li>
                             @endif
 
+
                             <!--Absent Attendance Report -->
                             @if (hasPermission('absent_attendance_report'))
                                 <li class="nav-item {{ menu_active_by_route(['AbsentAttendanceReport.AbsentAttendance']) }}">
