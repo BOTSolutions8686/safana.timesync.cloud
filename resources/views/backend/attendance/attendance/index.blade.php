@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <!-- export -->
-                    @include('backend.partials.buttons')
+                    <a class="btn btn-danger" href="http://localhost/safana/hrm/attendance/monthlyreport">Monthly Report</a>
                 </div>
                 <!-- toolbar table end -->
                 <!--  table start -->
@@ -124,3 +124,5 @@
 @section('script')
     @include('backend.partials.table_js')
 @endsection
+
+

@@ -243,3 +243,4 @@ Route::group(['middleware' => ['api', 'cors', 'TimeZone', 'MaintenanceMode'], 'p
     Route::post('/empolyee-attendance',[AttendanceController::class,'empoyeeattendance']);
 
 });
+
