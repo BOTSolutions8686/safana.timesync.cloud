@@ -133,6 +133,7 @@ class UserRepository
             $user->marital_status = $request->marital_status;
             $user->basic_salary = $request->basic_salary;
             $user->role_id = $request->role_id;
+            $user->location_id = $request->location_id;
             $user->birth_date = $request->birth_date;
             if (!empty($request->password)) {
                 $user->password = Hash::make($request->password);

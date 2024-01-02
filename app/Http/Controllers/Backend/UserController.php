@@ -34,6 +34,7 @@ use App\Repositories\Support\SupportTicketRepository;
 use App\Http\Requests\coreApp\User\UserProfileRequest;
 use App\Imports\EmployeeImport;
 use App\Models\coreApp\Relationship\RelationshipTrait;
+use App\Models\Settings\LocationBind;
 use App\Repositories\Hrm\Leave\LeaveRequestRepository;
 use App\Repositories\Settings\CompanyConfigRepository;
 use App\Repositories\Hrm\Employee\AppoinmentRepository;
@@ -43,6 +44,7 @@ use App\Repositories\Hrm\Attendance\AttendanceRepository;
 use App\Repositories\Hrm\Department\DepartmentRepository;
 use App\Repositories\Hrm\Designation\DesignationRepository;
 use App\Repositories\Settings\ProfileUpdateSettingRepository;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -470,6 +472,7 @@ class UserController extends Controller
         $data['roles'] = $this->role->getAll();
         $data['permissions'] = Permission::get();
         $data['managers'] = $this->user->getActiveAll();
+        $data['locations'] = LocationBind::where('company_id', $this->companyInformation()->id)->get();
         
         return view('backend.user.employee.add_user', compact('data'));
       } catch (\Throwable $th) {
@@ -757,6 +760,8 @@ class UserController extends Controller
             $data['timezones'] = $this->companyConfigRepo->time_zone();
             $data['permissions'] = Permission::get();
             $data['managers'] = $this->user->getActiveAll();
+            $data['locations'] = LocationBind::where('company_id', $this->companyInformation()->id)->get();
+
             return view('backend.user.employee.edit_view', compact('data'));
         } catch (\Exception $exception) {
             Toastr::error('Something went wrong.', 'Error');

@@ -108,8 +108,6 @@ class DesignationController extends Controller
 
     public function store(DesignationReqeust $request)
     {
-
-
         try {
             if (!$request->ajax()) {
                 Toastr::error(_trans('response.Please click on button!'), 'Error');

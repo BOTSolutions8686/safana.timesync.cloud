@@ -272,7 +272,13 @@ class AttendanceRepository
         $schedule = DutySchedule::where('shift_id', $user_info->shift_id)->where('status_id', 1)->first();
         if ($schedule) {
             $startTime = strtotime($schedule->start_time);
+            $endTime = strtotime($schedule->end_time);
             $check_in_time = strtotime($check_in_time . ':00');
+
+            if ($check_in_time > $endTime - (15 * 60)) {
+                return array(); 
+            }
+
             $diffFromStartTime = ($check_in_time - $startTime) / 60;
             //check employee check-in on time
             if ($check_in_time <= $startTime) {
@@ -330,15 +336,26 @@ class AttendanceRepository
     }
 
 
-    public function locationCheck($request,$branch_id)
+    public function locationCheck($request,$branch_id,$user)
     {
         $locationInfo = false;
-        foreach (DB::table('location_binds')->where('company_id', $this->companyInformation()->id)->where('branch_id', $branch_id)->where('status_id', 1)->get() as $location) {
-            $distance = distanceCalculate($request->latitude, $request->longitude, $location->latitude, $location->longitude);
-            if ($distance <= $location->distance) {
-                $locationInfo = true;
+        
+        if($user->location_id){
+          $location = DB::table('location_binds')->where('id',$user->location_id)->where('company_id', $user->company_id)->where('branch_id', $user->branch_id)->where('status_id', 1)->first();
+          $distance = distanceCalculate($request->latitude, $request->longitude, $location->latitude, $location->longitude);
+          if ($distance <= $location->distance) {
+              $locationInfo = true;
+          }
+        }else{
+            foreach (DB::table('location_binds')->where('company_id', $user->company_id)->where('branch_id', $user->branch_id)->where('status_id', 1)->get() as $location) {
+                $distance = distanceCalculate($request->latitude, $request->longitude, $location->latitude, $location->longitude);
+                if ($distance <= $location->distance) {
+                    $locationInfo = true;
+                }
             }
         }
+       
+       
         return $locationInfo;
     }
     public function store($request)
@@ -379,7 +396,7 @@ class AttendanceRepository
 
 
             $user = $this->user->query()->find(Auth::id());
-
+           
             return $this->userAttendance($user, $request);
         } catch (\Throwable $th) {
             // Log::error($th);
@@ -395,9 +412,13 @@ class AttendanceRepository
                 return $this->responseWithError('Attendance already exists', [], 400);
             }
             $branch_id = $user->branch_id;
-            if (settings('location_check') && !$this->locationCheck($request,$branch_id)) {
+            // if (settings('location_check') && !$this->locationCheck($request,$branch_id)) {
+            //     return $this->responseWithError('Your location is not valid', [], 400);
+            // }
+            if (!$this->locationCheck($request,$branch_id, $user)) {
                 return $this->responseWithError('Your location is not valid', [], 400);
             }
+            
             $isIpRestricted = $this->isIpRestricted();
             if ($isIpRestricted) {
                 $request['checkin_ip'] = getUserIpAddr();
@@ -585,7 +606,7 @@ class AttendanceRepository
 
             $user = $this->user->query()->find(Auth::id());
             $branch_id = $user->branch_id;
-            if (settings('location_check') && !$this->locationCheck($request,$branch_id)) {
+            if (settings('location_check') && !$this->locationCheck($request,$branch_id, $user)) {
                 return $this->responseWithError('Your location is not valid', [], 400);
             }
             if (settings('ip_check') && !$this->isIpRestricted()) {

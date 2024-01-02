@@ -18,6 +18,7 @@ trait RelationshipTrait
             'branch_id'=>userBranch(),
             $columnName => $value
         ])->first();
+        
         if (!$data) {
             return true;
         } else {

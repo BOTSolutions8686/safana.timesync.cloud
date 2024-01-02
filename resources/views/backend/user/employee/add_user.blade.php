@@ -159,6 +159,24 @@
                             </div>
                         </div>
 
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="location" class="form-label">CheckIn/CheckOut Location <span data-toggle="tooltip" data-placement="top" title="Leave empty to allow all locations"><i class="fa-solid fa-circle-info"></i></span></label>
+                                <select name="location_id" class="form-select change-role select2" >
+                                    <option value="">Select Location</option>
+                                    @foreach ($data['locations'] as $location)
+                                        <option value="{{ $location->id }}">{{ $location->address }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('location_id'))
+                                    <span class="error text-danger">
+                                        {{ $errors->first('location_id') }}
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="col-md-6">
