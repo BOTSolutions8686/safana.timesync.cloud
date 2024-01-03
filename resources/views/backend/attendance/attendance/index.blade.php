@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <!-- export -->
-                    <a class="btn btn-danger" href="http://localhost/safana/hrm/attendance/monthlyreport">Monthly Report</a>
+                    @include('backend.partials.buttons')
                 </div>
                 <!-- toolbar table end -->
                 <!--  table start -->

@@ -586,6 +586,14 @@
                                     </a>
                                 </li>
                             @endif
+                            
+                            <li class="nav-item {{ menu_active_by_route(['monthlyreport']) }}">
+                                <a href="{{ route('monthlyreport') }}"
+                                    class=" {{ set_active(route('monthlyreport')) }}">
+                                    <span>{{ _trans('Monthly Attendance Report') }}</span>
+                                </a>
+                            </li>
+                            
 
                             @if (hasPermission('break_report'))
                                 <li class="nav-item {{ menu_active_by_route(['breakReport.index']) }}">

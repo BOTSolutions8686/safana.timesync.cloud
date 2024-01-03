@@ -11,6 +11,7 @@ class AttendenceExportCont extends Controller
 {
     public function export(Request $request) 
     {
+        
         $recordsattend = Attendance::all();
 
         // Dynamically generate array of months for the dropdown

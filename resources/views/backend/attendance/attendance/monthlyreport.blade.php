@@ -106,7 +106,7 @@
                 @endforeach
             </ul>
         @else
-        <form action="{{ route('monthlyreport') }}" method="POST" class="mb-4">
+        <form action="{{ route('monthlyreport') }}" method="get" class="mb-4">
             @csrf
             <div class="form-row">
                 <div class="col-md-3">

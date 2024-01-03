@@ -76,4 +76,4 @@ Route::get('sync-flugs/{language_name}',[DevController::class, 'syncFlug']);
 
 
 // Route::get('/hrm/attendance/exportcs', [AttendenceExportCont::class,'export']);
-Route::get('/hrm/report/monthlyreport', [App\Http\Controllers\AttendenceExportCont::class, 'export'])->name('monthlyreport');
+Route::get('/hrm/report/monthlyreport', [AttendenceExportCont::class, 'export'])->name('monthlyreport');

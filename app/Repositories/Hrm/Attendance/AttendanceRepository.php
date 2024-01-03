@@ -338,7 +338,7 @@ class AttendanceRepository
 
     public function locationCheck($request,$branch_id,$user)
     {
-        dd($request->all());
+        
         $locationInfo = false;
         
         if($user->location_id){
